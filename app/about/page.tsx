@@ -32,7 +32,7 @@ export default function AboutPage() {
 
         <p>
           Being a young boy, I had people all around me who all knew what they
-          wanted to be in the future — doctors, lawyers, nurses, et cetera —
+          wanted to be in the future; doctors, lawyers, nurses, et cetera,
           and I was there, confused about what I wanted to be or do. At one
           point a doctor, at another an engineer, at another even a lawyer.
           All in all, something in me knew I never actually wanted to bear the

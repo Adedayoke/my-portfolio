@@ -37,10 +37,17 @@ export default function Contact() {
 
       <div className="grid md:grid-cols-2 gap-12 max-w-5xl">
         <div>
-          <p className="text-ink-muted leading-relaxed mb-8 max-w-sm">
+          <p className="text-ink-muted leading-relaxed mb-4 max-w-sm">
             Open to roles, freelance work, or just a good conversation about
             something you&apos;re building. Reach out however&apos;s easiest.
           </p>
+          <a
+            href="/habeeb-oke.vcf"
+            download
+            className="inline-flex items-center gap-2 font-mono text-xs text-accent hover:underline underline-offset-4 mb-8"
+          >
+            Save my contact card (.vcf) →
+          </a>
           <div className="space-y-3">
             {links.map((l) => (
               <a

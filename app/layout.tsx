@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
+import { ThemeProvider } from "next-themes";
 import "@fontsource/jetbrains-mono/400.css";
 import "@fontsource/jetbrains-mono/500.css";
 import "@fontsource/jetbrains-mono/600.css";
@@ -84,9 +87,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full">
-      <body className="min-h-full antialiased">
-        <script
+    <html lang="en" className="h-full" suppressHydrationWarning>
+      <body className="min-h-full antialiased" suppressHydrationWarning>
+        <Script
+          id="person-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
@@ -114,7 +118,10 @@ export default function RootLayout({
             }),
           }}
         />
-        {children}
+        <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
+          {children}
+        </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );

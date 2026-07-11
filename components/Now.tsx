@@ -20,7 +20,7 @@ export default function Now() {
           <p className="text-ink-muted leading-relaxed">
             Just wrapped up my final semester at LASU — Computer Science,
             four years in the making. Right now I&apos;m building{" "}
-            <strong className="text-ink">Bloom</strong> with a small crew of
+            <strong className="text-ink">Bloom</strong> &nbsp;with a small crew of
             friends, one of those projects where we&apos;re figuring things
             out and growing together as we go. No client brief, no academic
             requirement telling us what it should be — just us trying to
@@ -34,7 +34,7 @@ export default function Now() {
             What I&apos;m learning
           </h3>
           <p className="text-ink-muted leading-relaxed">
-            Currently reading <em>Atomic Habits</em> by James Clear — the
+            Currently reading <em>Atomic Habits</em>&nbsp;by James Clear — the
             kind of book that makes you quietly re-evaluate every routine
             you&apos;ve ever had. On the technical side, I&apos;m grinding
             DSA with friends (NeetCode, LeetCode, the whole ritual), and

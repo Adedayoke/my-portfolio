@@ -10,11 +10,11 @@ export default function About() {
           <div className="flex-1 h-px bg-border" />
         </div>
         <p className="text-ink-muted text-base md:text-lg leading-relaxed mb-6">
-          Growing up, everyone around me had a defined answer — doctor, lawyer,
+          Growing up, everyone around me had a defined answer; doctor, lawyer,
           nurse. I never did. I called myself a &ldquo;scientist&rdquo; just to
           buy myself room to be curious about everything, until tech found me
           and gave that curiosity an actual home. I&apos;ve gone from frontend
-          to mobile to backend to now chasing AI, hardware, and networking —
+          to mobile to backend to now chasing AI and Machine Learning and maybe sometime eventually go into hardware, and networking,
           not because I can&apos;t focus, but because every one of those
           fields is really just problem-solving wearing a different stack.
           Still connecting the dots.

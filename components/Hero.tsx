@@ -12,7 +12,7 @@ export default function Hero() {
           Software Engineer.
         </h1>
         <p className="text-lg md:text-xl text-ink-muted max-w-xl leading-relaxed mb-10">
-          I don&apos;t just write code — I solve problems other people give up on.
+          I don&apos;t just write code. I solve problems other people give up on.
         </p>
         <div className="flex flex-wrap gap-3">
           <a

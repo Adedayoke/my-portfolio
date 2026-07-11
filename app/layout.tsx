@@ -14,7 +14,7 @@ import "./globals.css";
 // the vercel.app URL Vercel gives you on deploy). This value is used to
 // build absolute URLs for Open Graph images, canonical links, and the
 // sitemap — search engines and social platforms need real, resolvable URLs.
-const SITE_URL = "https://habeeb-portfolio.vercel.app";
+const SITE_URL = "https://native-dev.vercel.app";
 
 const title = "Habeeb Oke — Native Dev | Software Engineer";
 const description =

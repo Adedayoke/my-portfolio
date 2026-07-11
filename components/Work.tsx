@@ -91,9 +91,9 @@ export default function Work() {
             className="border border-border rounded-lg overflow-hidden bg-bg-raised flex flex-col"
           >
             <div className="flex items-center gap-1.5 px-4 py-3 border-b border-border">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#3a3f4b]" />
-              <span className="w-2.5 h-2.5 rounded-full bg-[#3a3f4b]" />
-              <span className="w-2.5 h-2.5 rounded-full bg-[#3a3f4b]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-ink-faint" />
+              <span className="w-2.5 h-2.5 rounded-full bg-ink-faint" />
+              <span className="w-2.5 h-2.5 rounded-full bg-ink-faint" />
               {p.url && (
                 <span className="font-mono text-[11px] text-ink-faint ml-3 truncate">
                   {p.url}

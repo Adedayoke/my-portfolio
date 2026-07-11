@@ -1,0 +1,19 @@
+# Habeeb Oke (Native Dev)
+
+> Software engineer based in Lagos, Nigeria. Full-stack developer with
+> frontend/mobile strength, currently deepening backend and systems design.
+
+## Background
+- Final-year Computer Science student at Lagos State University (LASU), CGPA 4.46
+- Backend track, HNG Internship (Oct-Dec 2025)
+
+## Projects
+- AdVance — multi-tenant OOH advertising platform (Next.js, Flask, PostgreSQL)
+- Viigo — two-sided gym booking marketplace (React Native, Expo, Razorpay)
+- StudyPay — Solana Pay campus payment PWA
+- ResearchLoop — autonomous paper-to-code AI agent
+
+## Links
+- GitHub: https://github.com/Adedayoke
+- LinkedIn: https://linkedin.com/in/habeeb-oke
+- X: https://x.com/Adedayoke

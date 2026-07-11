@@ -13,13 +13,35 @@
   --success: #4ade80;
 }
 
-@theme inline {
+[data-theme="light"] {
+  --bg: #fafafa;
+  --bg-raised: #f1f1ef;
+  --border: #e2e2df;
+  --border-soft: #ececea;
+  --ink: #14161a;
+  --ink-muted: #5c6070;
+  --ink-faint: #9a9ea8;
+  --accent: #2f5fc9;
+  --accent-soft: rgba(47, 95, 201, 0.1);
+  --success: #16a34a;
+}
+
+/*
+  Note: intentionally NOT using "@theme inline" here.
+  "@theme inline" pre-resolves values at build time, which breaks runtime
+  theme switching (next-themes flips the `data-theme` attribute in the
+  browser, and these tokens need to stay live var() references to react
+  to that, not get baked into a fixed value at compile time).
+*/
+@theme {
   --color-bg: var(--bg);
   --color-bg-raised: var(--bg-raised);
   --color-border: var(--border);
   --color-ink: var(--ink);
   --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
   --color-accent: var(--accent);
+  --color-success: var(--success);
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --font-body: "Inter", ui-sans-serif, sans-serif;
 }
@@ -41,6 +63,7 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font-body), sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 ::selection {

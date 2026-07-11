@@ -1,4 +1,35 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
+function formatWatDifference() {
+  const now = new Date();
+  const localOffsetMinutes = new Date().getTimezoneOffset();
+  const watOffsetMinutes = -60;
+  const differenceMinutes = localOffsetMinutes - watOffsetMinutes;
+  const time = new Intl.DateTimeFormat("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).format(now);
+
+  if (differenceMinutes === 0) {
+    return `${time} [same time]`;
+  }
+
+  const differenceHours = Math.abs(differenceMinutes) / 60;
+  const sign = differenceMinutes > 0 ? "+" : "-";
+
+  return `${time} [utc${sign}${differenceHours} from wat]`;
+}
+
 export default function Hero() {
+  const [timezoneLabel, setTimezoneLabel] = useState("// lagos, nigeria");
+
+  useEffect(() => {
+    setTimezoneLabel(formatWatDifference());
+  }, []);
+
   return (
     <section
       id="hero"
@@ -6,7 +37,7 @@ export default function Hero() {
     >
       <div className="fade-up">
         <div className="font-mono text-xs text-accent mb-5 tracking-wide">
-          // lagos, nigeria
+          // {timezoneLabel}
         </div>
         <h1 className="font-mono font-medium text-[13vw] leading-[1.05] sm:text-5xl md:text-6xl mb-6 max-w-3xl">
           Software Engineer.

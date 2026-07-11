@@ -14,7 +14,7 @@ export default function About() {
           nurse. I never did. I called myself a &ldquo;scientist&rdquo; just to
           buy myself room to be curious about everything, until tech found me
           and gave that curiosity an actual home. I&apos;ve gone from frontend
-          to mobile to backend to now chasing AI and Machine Learning and maybe sometime eventually go into hardware, and networking,
+          to mobile to backend to now chasing AI and ML and maybe sometime eventually go into hardware, and networking,
           not because I can&apos;t focus, but because every one of those
           fields is really just problem-solving wearing a different stack.
           Still connecting the dots.

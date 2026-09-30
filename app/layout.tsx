@@ -17,7 +17,7 @@ const SITE_URL = "https://native-dev.vercel.app";
 
 const title = "Habeeb Oke — Native Dev | Software Engineer";
 const description =
-  "Habeeb Oke (Native Dev) is a software engineer out of Lagos, Nigeria — full-stack developer, LASU Computer Science graduate, building across frontend, mobile, and backend systems.";
+  "Habeeb Oke (Native Dev) is a software engineer — full-stack and backend developer, LASU Computer Science graduate, building across frontend, mobile, backend, and AI systems.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -30,14 +30,22 @@ export const metadata: Metadata = {
     "Habeeb Oke",
     "Native Dev",
     "NativeDev",
+    "native-dev",
     "Habeeb Oke Developer",
     "Habeeb Oke Software Engineer",
     "Habeeb Oke LASU",
-    "Habeeb Oke Lagos",
-    "Habeeb Oke Nigeria",
     "Habeeb Oke Full Stack Developer",
     "Habeeb Oke Backend Engineer",
+    "Habeeb Oke React Native",
+    "Habeeb Oke Mobile Developer",
+    "Habeeb Oke AI Engineer",
+    "Habeeb Oke Solana",
+    "Habeeb Oke Gemini",
     "Adedayoke",
+    "React Native developer",
+    "Next.js developer",
+    "full stack developer portfolio",
+    "mobile app developer portfolio",
   ],
   authors: [{ name: "Habeeb Oke", url: SITE_URL }],
   creator: "Habeeb Oke",
@@ -76,7 +84,11 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/icon.svg",
   },
 };
 
@@ -98,16 +110,11 @@ export default function RootLayout({
               name: "Habeeb Oke",
               alternateName: ["Native Dev", "NativeDev", "Adedayoke"],
               url: SITE_URL,
-              jobTitle: "Software Engineer",
+              jobTitle: "Software Engineer · Backend & Full-Stack",
               description,
               alumniOf: {
                 "@type": "CollegeOrUniversity",
                 name: "Lagos State University",
-              },
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: "Lagos",
-                addressCountry: "NG",
               },
               sameAs: [
                 "https://github.com/Adedayoke",

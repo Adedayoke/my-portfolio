@@ -1,0 +1,16 @@
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- N left vertical -->
+  <rect x="24" y="38" width="22" height="124" fill="white"/>
+
+  <!-- N diagonal (parallelogram — top-left to bottom-right) -->
+  <polygon points="46,38 72,38 108,162 82,162" fill="white"/>
+
+  <!-- Shared N-right / D-left vertical -->
+  <rect x="96" y="38" width="22" height="124" fill="white"/>
+
+  <!-- D outer bowl -->
+  <path d="M118 38 C172 38 176 66 176 100 C176 134 172 162 118 162 L96 162 L96 38 Z" fill="white"/>
+
+  <!-- D inner counter (cutout back to background) -->
+  <path d="M118 58 C154 58 156 76 156 100 C156 124 154 142 118 142 L116 142 L116 58 Z" fill="#0a0a0a"/>
+</svg>

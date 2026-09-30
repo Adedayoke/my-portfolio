@@ -1,91 +1,79 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
+import { staggerContainer, fadeUp, reducedVariant } from "@/lib/motion";
+
+const status = [
+  {
+    label: "Currently at",
+    value: "Bloom AI",
+    detail: "Full-stack Dev · commerce & automation tooling",
+  },
+  {
+    label: "Learning",
+    value: "DSA · System Design · AI engineering",
+    detail: "NeetCode, LeetCode, going deeper than 'it works'",
+  },
+  {
+    label: "Teaching",
+    value: "LASU CBT18",
+    detail: "Frontend Dev instructor · Nov 2024 – Sep 2026",
+  },
+  {
+    label: "Reading",
+    value: "Atomic Habits",
+    detail: "James Clear",
+  },
+];
+
 export default function Now() {
+  const reduced = useReducedMotion();
+  const vp = { once: true as const, margin: "-10%" as const };
+
   return (
-    <section
-      id="now"
-      className="px-6 md:px-10 md:pl-20 py-24 border-b border-border"
-    >
-      <div className="flex items-center gap-4 mb-10 max-w-2xl">
-        <h2 className="font-mono text-2xl font-medium">Now</h2>
-        <div className="flex-1 h-px bg-border" />
-      </div>
-      <p className="text-ink-faint font-mono text-xs mb-12 max-w-2xl">
-        What I&apos;m currently doing.
-      </p>
-
-      <div className="max-w-2xl space-y-12">
-        <div>
-          <h3 className="font-mono text-sm text-accent mb-3">
-            What I&apos;m building
-          </h3>
-          <p className="text-ink-muted leading-relaxed">
-            Just wrapped up my final semester at LASU — Computer Science,
-            four years in the making. Right now I&apos;m building{" "}
-            <strong className="text-ink">Bloom</strong> &nbsp;with a small crew of
-            friends, one of those projects where we&apos;re figuring things
-            out and growing together as we go. No client brief, no academic
-            requirement telling us what it should be — just us trying to
-            build something that actually matters, and learning a lot about
-            ourselves in the process.
-          </p>
+    <section id="now" className="py-24 border-b border-border">
+      <div className="max-w-5xl mx-auto px-6 md:px-10">
+        <div className="flex items-center gap-4 mb-10">
+          <h2 className="font-mono text-2xl font-medium">Now</h2>
+          <div className="flex-1 h-px bg-border" />
         </div>
 
-        <div>
-          <h3 className="font-mono text-sm text-accent mb-3">
-            What I&apos;m learning
-          </h3>
-          <p className="text-ink-muted leading-relaxed">
-            Currently reading <em>Atomic Habits</em>&nbsp;by James Clear — the
-            kind of book that makes you quietly re-evaluate every routine
-            you&apos;ve ever had. On the technical side, I&apos;m grinding
-            DSA with friends (NeetCode, LeetCode, the whole ritual), and
-            going deeper into backend fundamentals — specifically system
-            design, because I&apos;m tired of my backend work stopping at
-            &ldquo;it works&rdquo; and never reaching &ldquo;I actually
-            understand why this scales.&rdquo;
-          </p>
+        {/* Live badge */}
+        <div className="flex items-center gap-2 font-mono text-xs text-ink-muted mb-10">
+          <span
+            className="w-2 h-2 rounded-full bg-success flex-shrink-0"
+            style={{ animation: "blink 2s ease-in-out infinite" }}
+          />
+          what I&apos;m doing right now
         </div>
 
-        <div>
-          <h3 className="font-mono text-sm text-accent mb-3">
-            What&apos;s challenging me?
-          </h3>
-          <p className="text-ink-muted leading-relaxed">
-            Genuinely, just figuring out what&apos;s next. Four years of work
-            — projects, freelance gigs, community stuff — all building up to
-            this exact moment, and now it&apos;s time to see if it pays off.
-            Add in the DSA grind, the system design deep-dive, and Bloom
-            running in parallel, and my schedule looks less like a plan and
-            more like a group project nobody&apos;s leading. But I&apos;m
-            learning to hold the chaos loosely instead of fighting it.
-          </p>
-        </div>
-
-        <div>
-          <h3 className="font-mono text-sm text-accent mb-3">
-            Beyond all that
-          </h3>
-          <p className="text-ink-muted leading-relaxed">
-            Beyond all that, I care a lot about the people around me —
-            I&apos;m usually the one my friends and classmates come to for
-            help with their projects, their code, their write-ups, whatever
-            needs fixing. There&apos;s something satisfying about being
-            useful in that quiet, unglamorous way. Leadership and community
-            aren&apos;t things I chase for the title — they just seem to
-            find me, and I&apos;ve stopped resisting it.
-          </p>
-        </div>
-
-        <div>
-          <h3 className="font-mono text-sm text-accent mb-3">
-            What&apos;s next?
-          </h3>
-          <p className="text-ink-muted leading-relaxed">
-            At the end of the day, I just want everything I&apos;m juggling
-            right now to actually work out — the job search, Bloom, the
-            leadership stuff, all of it. And if the universe can&apos;t
-            guarantee that, the least it can do is keep my Wi-Fi stable.
-          </p>
-        </div>
+        <motion.div
+          className="divide-y divide-border"
+          variants={reduced ? reducedVariant : staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={vp}
+        >
+          {status.map((item) => (
+            <motion.div
+              key={item.label}
+              variants={reduced ? reducedVariant : fadeUp}
+              className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-8 py-5"
+            >
+              <span className="font-mono text-[10px] text-ink-muted tracking-wider uppercase w-28 flex-shrink-0">
+                {item.label}
+              </span>
+              <div>
+                <span className="font-mono text-sm text-ink font-medium">
+                  {item.value}
+                </span>
+                <span className="font-mono text-xs text-ink-muted ml-3">
+                  {item.detail}
+                </span>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

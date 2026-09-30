@@ -5,8 +5,10 @@ import { useEffect, useState } from "react";
 const sections = [
   { id: "hero", label: "HERO" },
   { id: "about", label: "ABOUT" },
-  { id: "work", label: "WORK" },
+  { id: "skills", label: "SKILLS" },
   { id: "experience", label: "EXP" },
+  { id: "work", label: "WORK" },
+  { id: "community", label: "COMM" },
   { id: "now", label: "NOW" },
   { id: "contact", label: "CONTACT" },
 ];
@@ -46,9 +48,16 @@ export default function StatusRail() {
           className="group relative flex items-center justify-center"
         >
           <span
-            className={`block w-1.5 h-1.5 rounded-full transition-colors duration-300 ${
-              active === s.id ? "bg-accent" : "bg-border"
-            }`}
+            className="block w-1.5 h-1.5 rounded-full transition-colors duration-300"
+            style={
+              active === s.id
+                ? {
+                    backgroundColor: "var(--accent)",
+                    animation: "dot-pulse 2s ease-in-out infinite",
+                    boxShadow: "0 0 0 0 var(--accent)",
+                  }
+                : { backgroundColor: "var(--border)" }
+            }
           />
           <span
             className={`absolute left-6 whitespace-nowrap font-mono text-[10px] tracking-wider transition-all duration-200 pointer-events-none ${

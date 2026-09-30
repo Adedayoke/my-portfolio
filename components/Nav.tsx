@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -13,45 +13,6 @@ const NAV_LINKS = [
   { href: "#now", label: "now" },
   { href: "#contact", label: "contact" },
 ];
-
-const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&";
-
-function ScrambleText({ text }: { text: string }) {
-  const [display, setDisplay] = useState(text);
-  const rafRef = useRef<number>(0);
-
-  const scramble = useCallback(() => {
-    let iterations = 0;
-    cancelAnimationFrame(rafRef.current);
-    const tick = () => {
-      setDisplay(
-        text
-          .split("")
-          .map((char, i) => {
-            if (i < iterations) return text[i];
-            return CHARS[Math.floor(Math.random() * CHARS.length)];
-          })
-          .join("")
-      );
-      iterations += 0.4;
-      if (iterations < text.length) {
-        rafRef.current = requestAnimationFrame(tick);
-      } else {
-        setDisplay(text);
-      }
-    };
-    rafRef.current = requestAnimationFrame(tick);
-  }, [text]);
-
-  useEffect(() => () => cancelAnimationFrame(rafRef.current), []);
-
-  return (
-    <span onMouseEnter={scramble} className="font-mono text-sm font-medium">
-      {display}
-      <span className="text-accent">.dev</span>
-    </span>
-  );
-}
 
 // ─── Bulb SVG ────────────────────────────────────────────────────────────────
 
@@ -252,8 +213,13 @@ export default function Nav() {
       <header className="sticky top-0 z-30 border-b border-border bg-bg/90 backdrop-blur-sm">
         <div className="h-0.75 bg-accent" />
         <div className="flex items-center justify-between px-6 md:px-10 py-4 md:pl-20">
-          <a href="#hero" onClick={() => setMenuOpen(false)}>
-            <ScrambleText text="native" />
+          <a href="#hero" onClick={() => setMenuOpen(false)} className="flex items-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={mounted && activeTheme === "light" ? "/logo-light.png" : "/logo-dark.png"}
+              alt="Native Dev"
+              className="h-8 w-auto"
+            />
           </a>
 
           {/* Desktop nav */}

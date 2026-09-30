@@ -9,11 +9,10 @@ import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
 import "@fontsource/inter/600.css";
 import "./globals.css";
+import LenisProvider from "@/components/LenisProvider";
+import Cursor from "@/components/Cursor";
+import ScrollProgress from "@/components/ScrollProgress";
 
-// TODO: replace with your real domain once you have one (custom domain or
-// the vercel.app URL Vercel gives you on deploy). This value is used to
-// build absolute URLs for Open Graph images, canonical links, and the
-// sitemap — search engines and social platforms need real, resolvable URLs.
 const SITE_URL = "https://native-dev.vercel.app";
 
 const title = "Habeeb Oke — Native Dev | Software Engineer";
@@ -119,7 +118,11 @@ export default function RootLayout({
           }}
         />
         <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
-          {children}
+          <LenisProvider>
+            <Cursor />
+            <ScrollProgress />
+            {children}
+          </LenisProvider>
         </ThemeProvider>
         <Analytics />
       </body>

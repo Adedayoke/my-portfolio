@@ -40,14 +40,14 @@ const fragmentShader = `
   }
 
   void main() {
-    // Background: deep space (dark) ↔ soft paper (light)
-    vec3 darkBg  = vec3(0.006, 0.006, 0.018);
+    // Background: near-pure black (dark) ↔ soft paper (light)
+    vec3 darkBg  = vec3(0.020, 0.020, 0.022);
     vec3 lightBg = vec3(0.950, 0.952, 0.962);
     vec3 color   = mix(darkBg, lightBg, lightMode);
 
-    // Stars: white-blue in dark mode, dark navy in light mode
-    vec3 farColor  = mix(vec3(0.55, 0.65, 0.90), vec3(0.22, 0.28, 0.52), lightMode);
-    vec3 midColor  = mix(vec3(0.80, 0.88, 1.00), vec3(0.10, 0.14, 0.38), lightMode);
+    // Stars: warm-white to pure-white in dark mode, dark slate in light mode
+    vec3 farColor  = mix(vec3(0.60, 0.62, 0.68), vec3(0.22, 0.28, 0.52), lightMode);
+    vec3 midColor  = mix(vec3(0.82, 0.84, 0.90), vec3(0.10, 0.14, 0.38), lightMode);
     vec3 nearColor = mix(vec3(1.00, 1.00, 1.00), vec3(0.04, 0.05, 0.20), lightMode);
 
     // In light mode: bigger dots, more of them, stronger blend
@@ -70,7 +70,7 @@ const fragmentShader = `
     // Cursor nebula
     float dist = length((vUv - mouse) * vec2(1.8, 1.0));
     float nebula = smoothstep(0.38, 0.0, dist) * mix(0.055, 0.035, lightMode);
-    vec3 nebulaColor = mix(vec3(0.18, 0.28, 0.72), vec3(0.60, 0.65, 0.88), lightMode);
+    vec3 nebulaColor = mix(vec3(0.10, 0.10, 0.14), vec3(0.60, 0.65, 0.88), lightMode);
     color = mix(color, nebulaColor, nebula);
 
     float starBrightness = max(max(s1, s2), s3);

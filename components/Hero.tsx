@@ -133,14 +133,9 @@ function AchievementTicker() {
 }
 
 export default function Hero() {
-  const [timezoneLabel, setTimezoneLabel] = useState("// lagos, nigeria");
   const [scrolled, setScrolled] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
-
-  useEffect(() => {
-    setTimezoneLabel(formatWatDifference());
-  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 5);
@@ -179,11 +174,8 @@ export default function Hero() {
           {/* Left: Text */}
           <div className="flex-1 min-w-0">
             <motion.div style={{ y: headlineY }}>
-              <div className="font-mono text-xs text-accent mb-2 tracking-wide opacity-60">
+              <div className="font-mono text-xs text-accent mb-5 tracking-wide opacity-60">
                 // habeeb oke
-              </div>
-              <div className="font-mono text-xs text-accent mb-5 tracking-wide">
-                {timezoneLabel}
               </div>
 
               {/* Character-split headline — words wrap as whole units */}

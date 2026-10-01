@@ -1,8 +1,52 @@
 "use client";
 
-import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, reducedVariant } from "@/lib/motion";
+
+const photos = [
+  {
+    src: "/community/cavista-hackathon.jpg",
+    alt: "Cavista Technologies Hackathon 2025",
+    label: "Cavista Hackathon",
+    year: "2025",
+    span: "col-span-2", // wider on desktop
+  },
+  {
+    src: "/community/GDGLASU-Core team member.avif",
+    alt: "GDGoC LASU Core Team 2025",
+    label: "GDGoC LASU Core Team",
+    year: "2025",
+    span: "",
+  },
+  {
+    src: "/community/ArthuriteIntegrated007.avif",
+    alt: "Arthurite Integrated Event 2024",
+    label: "Arthurite Integrated",
+    year: "2024",
+    span: "",
+  },
+  {
+    src: "/community/LASUTechX3.avif",
+    alt: "LASU Tech X 3.0",
+    label: "LASU Tech X 3.0",
+    year: "2025",
+    span: "",
+  },
+  {
+    src: "/community/ArthuriteIntegrated008.avif",
+    alt: "Arthurite Integrated Event 2024",
+    label: "Arthurite Integrated",
+    year: "2024",
+    span: "",
+  },
+  {
+    src: "/community/SUI workshop.avif",
+    alt: "SUI Workshop",
+    label: "SUI Workshop",
+    year: "2025",
+    span: "",
+  },
+];
 
 const hackathons = [
   {
@@ -52,6 +96,58 @@ const presenceItems = [
   },
 ];
 
+function PhotoCard({
+  photo,
+  index,
+}: {
+  photo: (typeof photos)[number];
+  index: number;
+}) {
+  const reduced = useReducedMotion();
+  return (
+    <motion.div
+      className={`relative overflow-hidden border border-border group ${photo.span}`}
+      initial={reduced ? {} : { opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-8%" }}
+      transition={{ duration: 0.6, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <div className="h-52 md:h-60 overflow-hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={photo.src}
+          alt={photo.alt}
+          className="w-full h-full object-cover object-center"
+          style={{
+            filter: "grayscale(100%) contrast(1.1) brightness(0.88)",
+            transition: "filter 0.7s ease, transform 0.7s ease",
+          }}
+          onMouseEnter={(e) => {
+            const img = e.currentTarget as HTMLImageElement;
+            img.style.filter = "grayscale(0%) contrast(1) brightness(1)";
+            img.style.transform = "scale(1.03)";
+          }}
+          onMouseLeave={(e) => {
+            const img = e.currentTarget as HTMLImageElement;
+            img.style.filter = "grayscale(100%) contrast(1.1) brightness(0.88)";
+            img.style.transform = "scale(1)";
+          }}
+        />
+      </div>
+      {/* Caption overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-bg/80 via-transparent to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 px-4 py-3 flex items-end justify-between">
+        <span className="font-mono text-[10px] text-ink font-medium">
+          {photo.label}
+        </span>
+        <span className="font-mono text-[10px] text-ink-faint border border-border rounded px-2 py-0.5 bg-bg/70 backdrop-blur-sm">
+          {photo.year}
+        </span>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Community() {
   const reduced = useReducedMotion();
   const v = reduced ? reducedVariant : fadeUp;
@@ -65,49 +161,17 @@ export default function Community() {
           <div className="flex-1 h-px bg-border" />
         </div>
 
-        {/* Hackathon photo — full-width feature */}
-        <motion.div
-          className="mb-16 relative overflow-hidden"
-          initial={reduced ? {} : { opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={vp}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="relative h-64 md:h-80 overflow-hidden border border-border">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/community/cavista-hackathon.jpg"
-              alt="Cavista Hackathon 2025 group photo"
-              className="w-full h-full object-cover object-center"
-              style={{
-                filter: "grayscale(100%) contrast(1.12) brightness(0.9)",
-                transition: "filter 0.7s ease",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLImageElement).style.filter = "grayscale(0%) contrast(1) brightness(1)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLImageElement).style.filter = "grayscale(100%) contrast(1.12) brightness(0.9)";
-              }}
-            />
-            {/* Bottom gradient for caption readability */}
-            <div className="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-transparent" />
-            {/* Caption */}
-            <div className="absolute bottom-0 left-0 right-0 p-5 flex items-end justify-between">
-              <div>
-                <p className="font-mono text-xs text-ink font-medium">
-                  Cavista Technologies Hackathon 2025
-                </p>
-                <p className="font-mono text-[10px] text-ink-faint mt-0.5">
-                  Lagos, Nigeria — 100+ developers, one room
-                </p>
-              </div>
-              <span className="font-mono text-[10px] text-ink-faint border border-border rounded px-2 py-1 bg-bg/80 backdrop-blur-sm">
-                2025
-              </span>
-            </div>
+        {/* Photo grid */}
+        <div className="mb-16">
+          <p className="font-mono text-xs text-accent tracking-wider mb-6">
+            // moments
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            {photos.map((photo, i) => (
+              <PhotoCard key={photo.src} photo={photo} index={i} />
+            ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Hackathons */}
         <div className="mb-16">

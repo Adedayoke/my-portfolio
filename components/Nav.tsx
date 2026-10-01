@@ -79,19 +79,21 @@ function BulbAnimation({
   onDone: () => void;
 }) {
   const isLight = targetTheme === "light";
-  // Start ON when switching to dark (show it turning off); OFF when switching to light (show it turning on)
   const [bulbOn, setBulbOn] = useState(!isLight);
+  const [burst, setBurst] = useState(false);
 
   const CORD_H = 88;
   const BULB_H = 44;
   const TOTAL_H = CORD_H + BULB_H;
   const cx = buttonRect.left + buttonRect.width / 2;
+  // Viewport y of the bulb's center at its lowest drop point
+  const cy = CORD_H + BULB_H * 0.5 + 18; // 88 + 22 + 18 = 128
 
   useEffect(() => {
-    // Flip bulb state at the lowest point (~650ms) and trigger theme change
     const t1 = setTimeout(() => {
       setBulbOn(isLight);
       onThemeChange();
+      if (isLight) setBurst(true);
     }, 660);
     const t2 = setTimeout(onDone, 1600);
     return () => {
@@ -102,68 +104,97 @@ function BulbAnimation({
   }, []);
 
   return (
-    <motion.div
-      className="fixed pointer-events-none"
-      style={{
-        left: cx,
-        top: 0,
-        translateX: "-50%",
-        zIndex: 29, // below nav (z-30), above page content
-      }}
-      initial={{ y: -(TOTAL_H + 8) }}
-      animate={{
-        y: [
-          -(TOTAL_H + 8), // hidden above nav
-          18,             // dropped — hangs below nav
-          18,             // hold at bottom
-          -(TOTAL_H + 8), // retract back up
-        ],
-      }}
-      transition={{
-        duration: 1.5,
-        times: [0, 0.43, 0.60, 1.0],
-        ease: ["easeOut", "linear", "easeIn"],
-      }}
-    >
-      {/* Cord */}
-      <div
-        style={{
-          width: 1.5,
-          height: CORD_H,
-          background: "linear-gradient(to bottom, transparent 0%, #888 12%, #888 100%)",
-          margin: "0 auto",
-        }}
-      />
+    <>
+      {/* Light ray burst — only fires when switching to light mode */}
+      {burst && (
+        <motion.div
+          className="fixed inset-0 pointer-events-none"
+          style={{
+            zIndex: 28,
+            background: `radial-gradient(circle at ${cx}px ${cy}px, rgba(255,252,140,0.97) 0%, rgba(255,255,255,0.96) 30%, rgba(255,255,240,0.5) 65%, transparent 100%)`,
+          }}
+          initial={{ clipPath: `circle(0px at ${cx}px ${cy}px)` }}
+          animate={{
+            clipPath: [
+              `circle(0px at ${cx}px ${cy}px)`,
+              `circle(250vmax at ${cx}px ${cy}px)`,
+              `circle(250vmax at ${cx}px ${cy}px)`,
+            ],
+            opacity: [1, 1, 0],
+          }}
+          transition={{
+            duration: 0.9,
+            times: [0, 0.42, 1.0],
+            ease: "easeOut",
+          }}
+          onAnimationComplete={() => setBurst(false)}
+        />
+      )}
 
-      {/* Glow halo */}
+      {/* Bulb + cord */}
       <motion.div
-        className="absolute rounded-full"
+        className="fixed pointer-events-none"
         style={{
-          top: CORD_H + BULB_H * 0.5,
-          left: "50%",
+          left: cx,
+          top: 0,
           translateX: "-50%",
-          translateY: "-50%",
-          background:
-            "radial-gradient(circle, rgba(255,245,100,0.70) 0%, rgba(255,245,100,0) 70%)",
-          pointerEvents: "none",
-          zIndex: -1,
+          zIndex: 29,
         }}
-        initial={{
-          width: bulbOn ? 150 : 0,
-          height: bulbOn ? 150 : 0,
-        }}
+        initial={{ y: -(TOTAL_H + 8) }}
         animate={{
-          width: bulbOn ? 150 : 0,
-          height: bulbOn ? 150 : 0,
+          y: [
+            -(TOTAL_H + 8),
+            18,
+            18,
+            -(TOTAL_H + 8),
+          ],
         }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
-      />
+        transition={{
+          duration: 1.5,
+          times: [0, 0.43, 0.60, 1.0],
+          ease: ["easeOut", "linear", "easeIn"],
+        }}
+      >
+        {/* Cord */}
+        <div
+          style={{
+            width: 1.5,
+            height: CORD_H,
+            background: "linear-gradient(to bottom, transparent 0%, #888 12%, #888 100%)",
+            margin: "0 auto",
+          }}
+        />
 
-      {/* Bulb */}
-      <div style={{ marginLeft: -1 }}>
-        <LightBulbSVG on={bulbOn} />
-      </div>
-    </motion.div>
+        {/* Glow halo */}
+        <motion.div
+          className="absolute rounded-full"
+          style={{
+            top: CORD_H + BULB_H * 0.5,
+            left: "50%",
+            translateX: "-50%",
+            translateY: "-50%",
+            background:
+              "radial-gradient(circle, rgba(255,245,100,0.70) 0%, rgba(255,245,100,0) 70%)",
+            pointerEvents: "none",
+            zIndex: -1,
+          }}
+          initial={{
+            width: bulbOn ? 150 : 0,
+            height: bulbOn ? 150 : 0,
+          }}
+          animate={{
+            width: bulbOn ? 150 : 0,
+            height: bulbOn ? 150 : 0,
+          }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        />
+
+        {/* Bulb */}
+        <div style={{ marginLeft: -1 }}>
+          <LightBulbSVG on={bulbOn} />
+        </div>
+      </motion.div>
+    </>
   );
 }
 
@@ -218,7 +249,7 @@ export default function Nav() {
             <img
               src={mounted && activeTheme === "light" ? "/logo-light.png" : "/logo-dark.png"}
               alt="Native Dev"
-              className="h-8 w-auto"
+              className="h-11 w-auto"
             />
           </a>
 

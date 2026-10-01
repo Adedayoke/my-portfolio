@@ -1,50 +1,45 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, reducedVariant } from "@/lib/motion";
 
 const photos = [
   {
     src: "/community/cavista-hackathon.jpg",
     alt: "Cavista Technologies Hackathon 2025",
-    label: "Cavista Hackathon",
+    label: "Cavista Technologies Hackathon",
     year: "2025",
-    span: "col-span-2", // wider on desktop
   },
   {
     src: "/community/GDGLASU-Core team member.avif",
     alt: "GDGoC LASU Core Team 2025",
     label: "GDGoC LASU Core Team",
     year: "2025",
-    span: "",
   },
   {
     src: "/community/ArthuriteIntegrated007.avif",
     alt: "Arthurite Integrated Event 2024",
     label: "Arthurite Integrated",
     year: "2024",
-    span: "",
   },
   {
     src: "/community/LASUTechX3.avif",
     alt: "LASU Tech X 3.0",
     label: "LASU Tech X 3.0",
     year: "2025",
-    span: "",
   },
   {
     src: "/community/ArthuriteIntegrated008.avif",
     alt: "Arthurite Integrated Event 2024",
     label: "Arthurite Integrated",
     year: "2024",
-    span: "",
   },
   {
     src: "/community/SUI workshop.avif",
     alt: "SUI Workshop",
     label: "SUI Workshop",
     year: "2025",
-    span: "",
   },
 ];
 
@@ -96,55 +91,136 @@ const presenceItems = [
   },
 ];
 
-function PhotoCard({
-  photo,
-  index,
-}: {
-  photo: (typeof photos)[number];
-  index: number;
-}) {
+const slideVariants = {
+  enter: (d: number) => ({ x: d > 0 ? "100%" : "-100%" }),
+  center: { x: 0 },
+  exit: (d: number) => ({ x: d > 0 ? "-100%" : "100%" }),
+};
+
+function PhotoCarousel() {
   const reduced = useReducedMotion();
+  const [idx, setIdx] = useState(0);
+  const [dir, setDir] = useState(1);
+  const [hovered, setHovered] = useState(false);
+
+  useEffect(() => {
+    if (hovered || reduced) return;
+    const t = setInterval(() => {
+      setDir(1);
+      setIdx((i) => (i + 1) % photos.length);
+    }, 3500);
+    return () => clearInterval(t);
+  }, [hovered, reduced]);
+
+  const prev = () => {
+    setDir(-1);
+    setIdx((i) => (i - 1 + photos.length) % photos.length);
+  };
+
+  const next = () => {
+    setDir(1);
+    setIdx((i) => (i + 1) % photos.length);
+  };
+
+  const photo = photos[idx];
+
   return (
-    <motion.div
-      className={`relative overflow-hidden border border-border group ${photo.span}`}
-      initial={reduced ? {} : { opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-8%" }}
-      transition={{ duration: 0.6, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
-    >
-      <div className="h-52 md:h-60 overflow-hidden">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={photo.src}
-          alt={photo.alt}
-          className="w-full h-full object-cover object-center"
-          style={{
-            filter: "grayscale(100%) contrast(1.1) brightness(0.88)",
-            transition: "filter 0.7s ease, transform 0.7s ease",
-          }}
-          onMouseEnter={(e) => {
-            const img = e.currentTarget as HTMLImageElement;
-            img.style.filter = "grayscale(0%) contrast(1) brightness(1)";
-            img.style.transform = "scale(1.03)";
-          }}
-          onMouseLeave={(e) => {
-            const img = e.currentTarget as HTMLImageElement;
-            img.style.filter = "grayscale(100%) contrast(1.1) brightness(0.88)";
-            img.style.transform = "scale(1)";
-          }}
-        />
+    <div className="relative select-none">
+      {/* Main slide area */}
+      <div
+        className="relative overflow-hidden border border-border h-72 md:h-[22rem] cursor-pointer"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        <AnimatePresence initial={false} custom={dir}>
+          <motion.div
+            key={idx}
+            custom={dir}
+            variants={reduced ? {} : slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.42, ease: [0.32, 0.72, 0, 1] }}
+            className="absolute inset-0"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={photo.src}
+              alt={photo.alt}
+              className="w-full h-full object-cover object-center"
+              style={{
+                filter: hovered
+                  ? "grayscale(0%) contrast(1) brightness(1)"
+                  : "grayscale(100%) contrast(1.12) brightness(0.88)",
+                transition: "filter 0.6s ease",
+              }}
+              draggable={false}
+            />
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-bg/75 via-transparent to-transparent pointer-events-none" />
+            {/* Caption */}
+            <div className="absolute bottom-0 left-0 right-0 px-5 py-4 flex items-end justify-between pointer-events-none">
+              <span className="font-mono text-xs text-ink font-medium">
+                {photo.label}
+              </span>
+              <span className="font-mono text-[10px] text-ink-faint border border-border rounded px-2 py-0.5 bg-bg/70 backdrop-blur-sm">
+                {photo.year}
+              </span>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Arrow buttons */}
+        <button
+          type="button"
+          onClick={prev}
+          className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center border border-border bg-bg/80 backdrop-blur-sm font-mono text-xs text-ink-muted hover:text-ink hover:border-ink-muted transition-all"
+          aria-label="Previous photo"
+        >
+          ←
+        </button>
+        <button
+          type="button"
+          onClick={next}
+          className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center border border-border bg-bg/80 backdrop-blur-sm font-mono text-xs text-ink-muted hover:text-ink hover:border-ink-muted transition-all"
+          aria-label="Next photo"
+        >
+          →
+        </button>
+
+        {/* Paused badge */}
+        <AnimatePresence>
+          {hovered && (
+            <motion.span
+              className="absolute top-3 right-3 z-10 font-mono text-[9px] text-ink-faint bg-bg/75 backdrop-blur-sm border border-border rounded px-2 py-0.5"
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.2 }}
+            >
+              paused
+            </motion.span>
+          )}
+        </AnimatePresence>
       </div>
-      {/* Caption overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-bg/80 via-transparent to-transparent pointer-events-none" />
-      <div className="absolute bottom-0 left-0 right-0 px-4 py-3 flex items-end justify-between">
-        <span className="font-mono text-[10px] text-ink font-medium">
-          {photo.label}
-        </span>
-        <span className="font-mono text-[10px] text-ink-faint border border-border rounded px-2 py-0.5 bg-bg/70 backdrop-blur-sm">
-          {photo.year}
-        </span>
+
+      {/* Dot indicators */}
+      <div className="flex justify-center items-center gap-1.5 mt-4">
+        {photos.map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            onClick={() => { setDir(i > idx ? 1 : -1); setIdx(i); }}
+            aria-label={`Go to photo ${i + 1}`}
+            className="h-1 rounded-full transition-all duration-300"
+            style={{
+              width: i === idx ? 24 : 6,
+              background: i === idx ? "var(--accent)" : "var(--ink-faint)",
+            }}
+          />
+        ))}
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -161,16 +237,12 @@ export default function Community() {
           <div className="flex-1 h-px bg-border" />
         </div>
 
-        {/* Photo grid */}
+        {/* Photo carousel */}
         <div className="mb-16">
           <p className="font-mono text-xs text-accent tracking-wider mb-6">
             // moments
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-            {photos.map((photo, i) => (
-              <PhotoCard key={photo.src} photo={photo} index={i} />
-            ))}
-          </div>
+          <PhotoCarousel />
         </div>
 
         {/* Hackathons */}

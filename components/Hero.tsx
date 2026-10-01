@@ -158,7 +158,6 @@ export default function Hero() {
   const indicatorOpacity = useTransform(scrollYProgress, [0, 0.08], [1, 0]);
 
   const headline = "Software Engineer.";
-  const chars = headline.split("");
 
   const charVariant = reduced ? reducedVariant : clipReveal;
   const containerVariant = reduced ? reducedVariant : staggerContainer;
@@ -187,27 +186,34 @@ export default function Hero() {
                 {timezoneLabel}
               </div>
 
-              {/* Character-split headline with clip reveal */}
+              {/* Character-split headline — words wrap as whole units */}
               <motion.h1
-                className="font-mono font-medium text-[13vw] leading-[1.05] sm:text-5xl md:text-6xl mb-6 max-w-3xl flex flex-wrap"
+                className="font-mono font-medium text-[13vw] leading-[1.05] sm:text-5xl md:text-6xl mb-6 max-w-3xl flex flex-wrap gap-x-[0.25em]"
                 variants={containerVariant}
                 initial="hidden"
                 animate="visible"
               >
-                {chars.map((char, i) => (
-                  <motion.span
-                    key={i}
-                    variants={charVariant}
-                    style={{ display: "inline-block" }}
-                    transition={
-                      reduced
-                        ? undefined
-                        : { delay: i * 0.025, duration: 0.5, ease: [0.16, 1, 0.3, 1] }
-                    }
-                  >
-                    {char === " " ? " " : char}
-                  </motion.span>
-                ))}
+                {headline.split(" ").map((word, wi, arr) => {
+                  const offset = arr.slice(0, wi).reduce((n, w) => n + w.length + 1, 0);
+                  return (
+                    <span key={wi} className="inline-block whitespace-nowrap">
+                      {word.split("").map((char, ci) => (
+                        <motion.span
+                          key={ci}
+                          variants={charVariant}
+                          style={{ display: "inline-block" }}
+                          transition={
+                            reduced
+                              ? undefined
+                              : { delay: (offset + ci) * 0.025, duration: 0.5, ease: [0.16, 1, 0.3, 1] }
+                          }
+                        >
+                          {char}
+                        </motion.span>
+                      ))}
+                    </span>
+                  );
+                })}
               </motion.h1>
 
               <motion.p

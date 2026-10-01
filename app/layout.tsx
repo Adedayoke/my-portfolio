@@ -12,7 +12,6 @@ import "./globals.css";
 import LenisProvider from "@/components/LenisProvider";
 import Cursor from "@/components/Cursor";
 import ScrollProgress from "@/components/ScrollProgress";
-import LoaderGate from "@/components/LoaderGate";
 
 const SITE_URL = "https://native-dev.vercel.app";
 
@@ -124,11 +123,9 @@ export default function RootLayout({
         />
         <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
           <LenisProvider>
-            <LoaderGate>
-              <Cursor />
-              <ScrollProgress />
-              {children}
-            </LoaderGate>
+            <Cursor />
+            <ScrollProgress />
+            {children}
           </LenisProvider>
         </ThemeProvider>
         <Analytics />

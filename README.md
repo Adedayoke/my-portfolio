@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Habeeb Oke — Portfolio
 
-## Getting Started
+My personal portfolio site: experience, selected work, community involvement, and what I'm building now.
 
-First, run the development server:
+**Live:** [native-dev.vercel.app](https://native-dev.vercel.app)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+<!-- Add a screenshot: save one to public/ and uncomment the line below -->
+<!-- ![Portfolio screenshot](public/screenshot.png) -->
+
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router), React 19, TypeScript
+- **Styling:** Tailwind CSS v4, `next-themes` for light/dark mode
+- **Motion:** Framer Motion, Lenis smooth scrolling
+- **3D / WebGL:** Three.js via React Three Fiber, Drei, and postprocessing
+- **Analytics:** Vercel Analytics
+- **Hosting:** Vercel
+
+## Highlights
+
+- **Custom GLSL hero background.** A shader-driven starfield that reacts to the mouse and switches between a dark-space and a light theme. It renders with React Three Fiber and a bloom pass.
+- **Performance-conscious 3D.** The WebGL canvas loads client-side only, so it never blocks server rendering.
+- **Micro-interactions.** Reusable `useMagnet` and `useTilt` hooks built on Framer Motion springs, plus a custom cursor and a scroll progress indicator.
+- **SEO built in.** Generated Open Graph images, `sitemap.ts`, `robots.ts`, and an `llms.txt` for AI crawlers.
+- **Downloadable contact card.** A vCard in `public/` so visitors can save my details in one tap.
+
+## Project Structure
+
+```
+app/            Routes, layout, OG image, sitemap, robots
+components/     Page sections (Hero, Experience, Work, Community, Now, Contact, …)
+lib/hooks/      useMagnet, useTilt interaction hooks
+lib/motion.ts   Shared animation variants
+public/         Static assets, community photos, vCard, llms.txt
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Running Locally
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+git clone https://github.com/Adedayoke/my-portfolio.git
+cd my-portfolio
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Then open [http://localhost:3000](http://localhost:3000).
 
-## Learn More
+## Contact
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **LinkedIn:** [linkedin.com/in/habeeb-oke](https://linkedin.com/in/habeeb-oke)
+- **Email:** [adedayoke2006@gmail.com](mailto:adedayoke2006@gmail.com)
+- **GitHub:** [@Adedayoke](https://github.com/Adedayoke)

@@ -6,7 +6,7 @@ import { clipReveal, staggerContainer, reducedVariant } from "@/lib/motion";
 
 const stats = [
   { label: "Experience", value: 4, suffix: "+ yrs" },
-  { label: "Play Store", value: 1, suffix: " app" },
+  { label: "Play Store", value: 2, suffix: " apps" },
   { label: "Students taught", value: 100, suffix: "+" },
   { label: "AI projects", value: 3, suffix: "+" },
 ];

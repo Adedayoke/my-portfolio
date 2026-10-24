@@ -16,7 +16,7 @@ const HeroCanvas = dynamic(() => import("./HeroCanvas"), { ssr: false });
 
 const achievements = [
   "GDGoC LASU",
-  "3+ yrs shipping products",
+  "4+ yrs shipping products",
   "Play Store published",
   "taught 100+ students",
   "AI · Solana · Gemini · AWS",

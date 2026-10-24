@@ -5,7 +5,7 @@ import { motion, useReducedMotion, useInView } from "framer-motion";
 import { clipReveal, staggerContainer, reducedVariant } from "@/lib/motion";
 
 const stats = [
-  { label: "Experience", value: 3, suffix: "+ yrs" },
+  { label: "Experience", value: 4, suffix: "+ yrs" },
   { label: "Play Store", value: 1, suffix: " app" },
   { label: "Students taught", value: 100, suffix: "+" },
   { label: "AI projects", value: 3, suffix: "+" },
@@ -157,7 +157,7 @@ export default function About() {
             className="text-ink-muted text-base md:text-lg leading-relaxed mb-6 max-w-2xl"
             variants={itemVariant}
           >
-            Software engineer from Lagos. 3+ years building across the full
+            Software engineer from Lagos. 4+ years building across the full
             stack — frontend, mobile, backend, and now AI. Every field is just
             problem-solving wearing a different stack.
           </motion.p>
